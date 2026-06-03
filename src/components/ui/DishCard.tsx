@@ -68,9 +68,9 @@ const DishCard = ({ image, name, description, price }: DishCardProps) => {
                 <h3 className="text-3xl font-heading mb-4">{name}</h3>
                 <div className="text-primary text-2xl font-bold mb-6">{price}</div>
                 <p className="text-secondary text-lg leading-relaxed mb-8">{description}</p>
-                <p className="text-secondary opacity-80 mb-8 max-w-md">Our celebrated {name} is meticulously prepared by our world class chefs using only the finest seasonal ingredients. Every bite is designed to be an extraordinary culinary journey.</p>
+                <p className="text-secondary opacity-80 mb-8 max-w-md">Our {name} is prepared fresh for dine-in and online delivery orders, with the same care, flavor, and generous serving Babs Abula Spot is known for.</p>
                 <div className="flex gap-md">
-                  <Button variant="primary">Reserve Table</Button>
+                  <Button variant="primary">Order Now</Button>
                   <Button variant="outline" onClick={() => setIsModalOpen(false)}>Close</Button>
                 </div>
 

@@ -1,80 +1,120 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Bike, CalendarCheck, MessageCircle, PartyPopper } from 'lucide-react';
 import Button from '../components/ui/Button';
 import './OrderContact.css';
 
-const Order = () => {
-  const [activeTab, setActiveTab] = useState<'reservation' | 'order'>('reservation');
-  const [cartItems] = useState([
-    { id: 1, name: 'Truffle Mushroom Risotto', price: 28, quantity: 1 },
-    { id: 2, name: 'Molten Lava Cake', price: 14, quantity: 2 },
-  ]);
+type OrderTab = 'delivery' | 'reservation' | 'catering' | 'whatsapp';
 
-  const cartTotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+const WHATSAPP_NUMBER = '2349036152411';
+const WHATSAPP_MESSAGE = encodeURIComponent('Hello Babs Abula Spot, I want to place an order.');
+
+const TABS: Array<{ id: OrderTab; label: string; icon: typeof Bike }> = [
+  { id: 'delivery', label: 'Delivery Request', icon: Bike },
+  { id: 'reservation', label: 'Reservation', icon: CalendarCheck },
+  { id: 'catering', label: 'Event Catering', icon: PartyPopper },
+  { id: 'whatsapp', label: 'WhatsApp Order', icon: MessageCircle },
+];
+
+const Order = () => {
+  const [activeTab, setActiveTab] = useState<OrderTab>('delivery');
 
   return (
     <div className="order-page pb-20">
-      {/* Header */}
       <section className="page-header flex items-center justify-center text-center">
         <div className="page-header-overlay"></div>
         <div className="container relative z-10">
-          <h1 className="text-white text-5xl md:text-6xl font-bold mb-4">Dine With Us</h1>
+          <h1 className="text-white text-5xl md:text-6xl font-bold mb-4">Order, Book, or Cater With Us</h1>
           <p className="text-white text-xl opacity-90 max-w-2xl mx-auto">
-            Book a table for an unforgettable evening, or order online for exquisite dining at home.
+            Delivery requests, table reservations, WhatsApp ordering, and event catering for students, office workers, families, food lovers, and corporate clients.
           </p>
         </div>
       </section>
 
-      {/* Main Content */}
       <section className="container mt-12 pt-10">
-        
-        {/* Toggle Controls */}
-        <div className="flex justify-center mb-12">
-          <div className="toggle-switch bg-secondary p-2 rounded-full flex gap-2 w-full max-w-md relative">
-            <button 
-              className={`toggle-btn w-1/2 py-3 rounded-full font-heading font-semibold transition-all z-10 ${activeTab === 'reservation' ? 'text-white' : 'text-secondary'}`}
-              onClick={() => setActiveTab('reservation')}
+        <div className="service-tabs">
+          {TABS.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              type="button"
+              className={`service-tab ${activeTab === id ? 'active' : ''}`}
+              onClick={() => setActiveTab(id)}
             >
-              Table Reservation
+              <Icon size={18} />
+              <span>{label}</span>
             </button>
-            <button 
-              className={`toggle-btn w-1/2 py-3 rounded-full font-heading font-semibold transition-all z-10 ${activeTab === 'order' ? 'text-white' : 'text-secondary'}`}
-              onClick={() => setActiveTab('order')}
-            >
-              Online Order
-            </button>
-            
-            {/* Animated Background */}
-            <motion.div 
-              className="absolute top-2 bottom-2 bg-primary rounded-full z-0"
-              initial={false}
-              animate={{ 
-                left: activeTab === 'reservation' ? '8px' : 'calc(50% + 4px)',
-                width: 'calc(50% - 12px)'
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            />
-          </div>
+          ))}
         </div>
 
-        {/* Tab Content */}
         <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
-            {activeTab === 'reservation' ? (
-              <motion.div 
-                key="reservation"
+            {activeTab === 'delivery' && (
+              <motion.div
+                key="delivery"
+                className="glass-panel p-8 md:p-12 rounded-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.25 }}
+              >
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-heading mb-2">Delivery Request</h2>
+                  <p className="text-secondary">Tell us what you want, where you are, and when you need it delivered.</p>
+                </div>
+                <form className="reservation-form" onSubmit={(e) => e.preventDefault()}>
+                  <div className="grid grid-cols-2 gap-md mb-6">
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Full Name</label>
+                      <input type="text" className="form-input w-full p-4" placeholder="Your name" required />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Phone Number</label>
+                      <input type="tel" className="form-input w-full p-4" placeholder="09036152411" required />
+                    </div>
+                  </div>
+                  <div className="form-group mb-6">
+                    <label className="form-label block mb-2">Delivery Address</label>
+                    <input type="text" className="form-input w-full p-4" placeholder="Hostel, office, estate, or street address" required />
+                  </div>
+                  <div className="form-group mb-6">
+                    <label className="form-label block mb-2">Meal Request</label>
+                    <textarea className="form-input w-full p-4 h-32 resize-none" placeholder="List your meals, quantity, spice level, and any notes." required />
+                  </div>
+                  <div className="grid grid-cols-2 gap-md mb-8">
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Customer Type</label>
+                      <select className="form-input w-full p-4">
+                        <option>Student</option>
+                        <option>Office Worker</option>
+                        <option>Family</option>
+                        <option>Food Lover</option>
+                        <option>Corporate Client</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Preferred Time</label>
+                      <input type="time" className="form-input w-full p-4" />
+                    </div>
+                  </div>
+                  <Button type="submit" size="lg" fullWidth>Submit Delivery Request</Button>
+                </form>
+              </motion.div>
+            )}
+
+            {activeTab === 'reservation' && (
+              <motion.div
+                key="reservation"
                 className="glass-panel p-8 md:p-12 rounded-xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25 }}
               >
                 <div className="text-center mb-10">
                   <h2 className="text-3xl font-heading mb-2">Reserve Your Table</h2>
-                  <p className="text-secondary">Join us for a wonderful culinary experience.</p>
+                  <p className="text-secondary">Book a table for family meals, casual dining, work lunch, or celebrations.</p>
                 </div>
-                
-                <form className="reservation-form" onSubmit={e => e.preventDefault()}>
+                <form className="reservation-form" onSubmit={(e) => e.preventDefault()}>
                   <div className="grid grid-cols-2 gap-md mb-6">
                     <div className="form-group">
                       <label className="form-label block mb-2">Date</label>
@@ -85,108 +125,94 @@ const Order = () => {
                       <input type="time" className="form-input w-full p-4" required />
                     </div>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-md mb-6">
+                  <div className="grid grid-cols-2 gap-md mb-8">
                     <div className="form-group">
                       <label className="form-label block mb-2">Number of Guests</label>
                       <select className="form-input w-full p-4" required>
-                        <option value="">Select Guests</option>
-                        {[1,2,3,4,5,6,7,8,"8+"].map(n => <option key={n} value={n}>{n} People</option>)}
+                        <option value="">Select guests</option>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, '8+'].map((n) => <option key={n} value={n}>{n} People</option>)}
                       </select>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label block mb-2">Special Occasion</label>
-                      <select className="form-input w-full p-4">
-                        <option value="">None</option>
-                        <option value="birthday">Birthday</option>
-                        <option value="anniversary">Anniversary</option>
-                        <option value="business">Business Dinner</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-md mb-8">
-                    <div className="form-group">
-                      <label className="form-label block mb-2">Full Name</label>
-                      <input type="text" className="form-input w-full p-4" placeholder="Your Name" required />
                     </div>
                     <div className="form-group">
                       <label className="form-label block mb-2">Phone Number</label>
-                      <input type="tel" className="form-input w-full p-4" placeholder="(555) 123-4567" required />
+                      <input type="tel" className="form-input w-full p-4" placeholder="Your contact number" required />
                     </div>
                   </div>
-                  
                   <Button type="submit" size="lg" fullWidth>Confirm Reservation</Button>
                 </form>
               </motion.div>
+            )}
 
-            ) : (
-              
-              <motion.div 
-                key="order"
+            {activeTab === 'catering' && (
+              <motion.div
+                key="catering"
+                className="glass-panel p-8 md:p-12 rounded-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-xl"
+                transition={{ duration: 0.25 }}
               >
-                {/* Cart Items */}
-                <div className="glass-panel p-8 rounded-xl h-fit">
-                  <h3 className="text-2xl font-heading mb-6 border-b pb-4">Your Cart</h3>
-                  
-                  <div className="cart-items flex-col gap-md mb-8">
-                    {cartItems.map((item) => (
-                      <div key={item.id} className="cart-item flex justify-between items-center py-4 border-b">
-                        <div>
-                          <h4 className="font-semibold text-lg">{item.name}</h4>
-                          <p className="text-secondary">${item.price.toFixed(2)} x {item.quantity}</p>
-                        </div>
-                        <div className="font-heading font-bold text-lg">
-                          ${(item.price * item.quantity).toFixed(2)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="cart-summary flex-col gap-2 border-t pt-6">
-                    <div className="flex justify-between text-secondary">
-                      <span>Subtotal</span>
-                      <span>${cartTotal.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-secondary">
-                      <span>Tax (8%)</span>
-                      <span>${(cartTotal * 0.08).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-xl font-heading font-bold mt-4 pt-4 border-t border-gray-200">
-                      <span>Total</span>
-                      <span className="text-primary">${(cartTotal * 1.08).toFixed(2)}</span>
-                    </div>
-                  </div>
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-heading mb-2">Event Catering Booking</h2>
+                  <p className="text-secondary">Request catering for office meetings, student events, family parties, and corporate functions.</p>
                 </div>
-
-                {/* Checkout Details */}
-                <div className="glass-panel p-8 rounded-xl">
-                  <h3 className="text-2xl font-heading mb-6">Checkout Details</h3>
-                  <form onSubmit={e => e.preventDefault()}>
-                    <div className="form-group mb-4">
-                      <label className="form-label block mb-2">Delivery Address</label>
-                      <input type="text" className="form-input w-full p-3" placeholder="123 Main St..." required />
+                <form className="reservation-form" onSubmit={(e) => e.preventDefault()}>
+                  <div className="grid grid-cols-2 gap-md mb-6">
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Event Type</label>
+                      <select className="form-input w-full p-4" required>
+                        <option value="">Select event type</option>
+                        <option>Corporate Meeting</option>
+                        <option>Family Event</option>
+                        <option>Student Event</option>
+                        <option>Birthday</option>
+                        <option>Other</option>
+                      </select>
                     </div>
-                    <div className="form-group mb-4">
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Number of Guests</label>
+                      <input type="number" min="10" className="form-input w-full p-4" placeholder="50" required />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-md mb-6">
+                    <div className="form-group">
+                      <label className="form-label block mb-2">Event Date</label>
+                      <input type="date" className="form-input w-full p-4" required />
+                    </div>
+                    <div className="form-group">
                       <label className="form-label block mb-2">Contact Number</label>
-                      <input type="tel" className="form-input w-full p-3" placeholder="(555) 123-4567" required />
+                      <input type="tel" className="form-input w-full p-4" placeholder="Your phone number" required />
                     </div>
-                    <div className="form-group mb-8">
-                      <label className="form-label block mb-2">Card Details</label>
-                      <input type="text" className="form-input w-full p-3 mb-2" placeholder="Card Number" required />
-                      <div className="flex gap-2">
-                        <input type="text" className="form-input w-1/2 p-3" placeholder="MM/YY" required />
-                        <input type="text" className="form-input w-1/2 p-3" placeholder="CVC" required />
-                      </div>
-                    </div>
-                    <Button type="submit" size="lg" fullWidth>Place Order : ${(cartTotal * 1.08).toFixed(2)}</Button>
-                  </form>
-                </div>
+                  </div>
+                  <div className="form-group mb-8">
+                    <label className="form-label block mb-2">Catering Notes</label>
+                    <textarea className="form-input w-full p-4 h-32 resize-none" placeholder="Tell us the meals, location, serving style, and budget range." required />
+                  </div>
+                  <Button type="submit" size="lg" fullWidth>Request Catering Quote</Button>
+                </form>
+              </motion.div>
+            )}
+
+            {activeTab === 'whatsapp' && (
+              <motion.div
+                key="whatsapp"
+                className="whatsapp-order-panel glass-panel p-8 md:p-12 rounded-xl text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25 }}
+              >
+                <MessageCircle size={48} className="text-primary mx-auto mb-4" />
+                <h2 className="text-3xl font-heading mb-3">Order Directly on WhatsApp</h2>
+                <p className="text-secondary mb-8">
+                  Chat with us for today&apos;s menu, delivery fees, bulk orders, loyalty offers, and quick order confirmation.
+                </p>
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noreferrer">
+                  <Button type="button" size="lg" className="icon-btn justify-center">
+                    <MessageCircle size={18} />
+                    Continue to WhatsApp
+                  </Button>
+                </a>
               </motion.div>
             )}
           </AnimatePresence>

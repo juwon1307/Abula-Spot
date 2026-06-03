@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const shouldUseSolidNavbar = isScrolled || location.pathname !== '/';
 
   const links = [
     { name: 'Home', path: '/' },
@@ -23,9 +24,10 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -34,10 +36,10 @@ const Navbar = () => {
 
   return (
     <>
-      <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <header className={`navbar ${shouldUseSolidNavbar ? 'navbar-scrolled' : ''}`}>
         <div className="container navbar-container">
           <Link to="/" className="navbar-logo">
-            <span>Abula</span> Spot.
+            Babs Abula Spot<span>.</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -55,7 +57,7 @@ const Navbar = () => {
 
           <div className="navbar-actions desktop-only flex items-center gap-4">
             <Link to="/order">
-              <Button variant="primary">Book Table</Button>
+              <Button variant="primary">Order Online</Button>
             </Link>
           </div>
 
@@ -91,7 +93,7 @@ const Navbar = () => {
               ))}
               <div className="mobile-menu-actions flex flex-col gap-4 mt-6">
                 <Link to="/order" className="w-full">
-                  <Button variant="primary" fullWidth>Book Table</Button>
+                  <Button variant="primary" fullWidth>Order Online</Button>
                 </Link>
               </div>
             </div>

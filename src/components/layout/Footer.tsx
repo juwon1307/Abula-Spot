@@ -10,8 +10,8 @@ const Footer = () => {
         <div className="grid grid-cols-4 gap-xl footer-grid">
           {/* Brand */}
           <div className="footer-col brand-col">
-            <Link to="/" className="footer-logo">Abula Spot<span>.</span></Link>
-            <p className="text-secondary mt-4">Experience taste like never before. A harmonious blend of tradition and modern culinary artistry.</p>
+            <Link to="/" className="footer-logo">Babs Abula Spot<span>.</span></Link>
+            <p className="text-secondary mt-4">A restaurant and online food delivery spot serving fresh Abula meals, local favorites, and satisfying dishes across Lagos.</p>
             <div className="social-links mt-6">
               <a href="#" className="social-icon"><Camera size={20} /></a>
               <a href="#" className="social-icon"><Share2 size={20} /></a>
@@ -43,7 +43,7 @@ const Footer = () => {
           {/* Newsletter */}
           <div className="footer-col">
             <h4 className="footer-heading">Newsletter</h4>
-            <p className="text-secondary mb-4">Subscribe to receive updates, access to exclusive deals, and more.</p>
+            <p className="text-secondary mb-4">Subscribe for menu updates, delivery deals, loyalty rewards, and catering offers.</p>
             <form className="newsletter-form flex-col gap-sm" onSubmit={(e) => e.preventDefault()}>
               <input type="email" placeholder="Email address" className="newsletter-input" required />
               <Button type="submit" fullWidth>Subscribe</Button>
@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom flex justify-between items-center">
-          <p className="text-secondary text-sm">&copy; {new Date().getFullYear()} Abula Spot Restaurant. All rights reserved.</p>
+          <p className="text-secondary text-sm">&copy; {new Date().getFullYear()} Babs Abula Spot Restaurant & Delivery. All rights reserved.</p>
           <div className="footer-bottom-links">
             <Link to="#">Privacy Policy</Link>
             <Link to="#">Terms of Service</Link>

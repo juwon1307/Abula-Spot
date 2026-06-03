@@ -30,7 +30,7 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          Abula Spot
+          Babs Abula Spot
           <motion.span
             className="intro-dot"
             initial={{ opacity: 0, x: "-800%", y: 0 }}

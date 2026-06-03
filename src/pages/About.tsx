@@ -3,10 +3,10 @@ import { Target, Heart, Award } from 'lucide-react';
 import './About.css';
 
 const TIMELINE = [
-  { year: '2010', title: 'The Beginning', desc: 'Abula Spot opened its doors with a simple vision to provide comfort food elevated by modern techniques.' },
-  { year: '2015', title: 'First Michelin Star', desc: 'Our dedication to excellence was recognized globally, setting a new standard for our culinary journey.' },
-  { year: '2020', title: 'Sustainable Shift', desc: 'Partnered with over 50 local farms to ensure 100% organic and sustainable sourcing.' },
-  { year: '2023', title: 'Global Recognition', desc: 'Named among the Top 50 Restaurants worldwide, expanding our influence and team.' },
+  { year: '2010', title: 'The Beginning', desc: 'Babs Abula Spot opened with a simple goal: serve fresh, satisfying Nigerian food with warm hospitality.' },
+  { year: '2015', title: 'Growing the Kitchen', desc: 'Our menu expanded with more local favorites while keeping Abula at the heart of what we do.' },
+  { year: '2020', title: 'Online Ordering', desc: 'We added online food delivery so customers could enjoy our meals at home, work, and events.' },
+  { year: '2023', title: 'Restaurant & Delivery', desc: 'Babs Abula Spot now serves guests in our restaurant and customers ordering online across Lagos.' },
 ];
 
 const TEAM = [
@@ -29,7 +29,7 @@ const About = () => {
         >
           <h1 className="text-white text-5xl md:text-6xl font-bold mb-4">Our Story</h1>
           <p className="text-white text-xl opacity-90 max-w-2xl mx-auto">
-            A journey of flavors, passion, and culinary perfection.
+            A restaurant and online food delivery service built around fresh Nigerian meals.
           </p>
         </motion.div>
       </section>
@@ -44,12 +44,12 @@ const About = () => {
             transition={{ duration: 0.8 }}
           >
             <h4 className="section-subtitle">Since 2010</h4>
-            <h2 className="section-title">The Abula Spot Heritage</h2>
+            <h2 className="section-title">The Babs Abula Spot Heritage</h2>
             <p className="text-secondary mb-4 text-lg">
-              What started as a humble bistro in the heart of the city has blossomed into a temple of gastronomy. Abula Spot is the realization of a lifelong dream to bring people together through the universal language of extraordinary food.
+              Babs Abula Spot is a restaurant and online food delivery service created to make fresh Abula and local meals easy to enjoy anywhere.
             </p>
             <p className="text-secondary">
-              Every dish we serve tells a story—our story. From the crackling warmth of our ovens to the meticulous plating of our desserts, we pour our hearts into every detail.
+              Guests can sit down with us for a proper meal or order online for delivery. Either way, we focus on good portions, bold flavor, and dependable service.
             </p>
           </motion.div>
           <motion.div
@@ -75,7 +75,7 @@ const About = () => {
             >
               <Target size={40} className="text-primary mx-auto mb-4" />
               <h3 className="text-2xl mb-2 font-heading">Our Mission</h3>
-              <p className="text-secondary">To redefine fine dining by seamlessly blending authentic traditional recipes with modern, innovative culinary techniques.</p>
+              <p className="text-secondary">To serve fresh Nigerian food in our restaurant and through reliable online delivery.</p>
             </motion.div>
             <motion.div 
               className="glass-panel p-8 rounded-lg text-center"
@@ -83,7 +83,7 @@ const About = () => {
             >
               <Heart size={40} className="text-primary mx-auto mb-4" />
               <h3 className="text-2xl mb-2 font-heading">Our Passion</h3>
-              <p className="text-secondary">We believe in the emotional power of food. Our passion is to create memorable experiences that linger long after the last bite.</p>
+              <p className="text-secondary">We believe good food should be easy to access, whether customers are dining in or ordering from home.</p>
             </motion.div>
             <motion.div 
               className="glass-panel p-8 rounded-lg text-center"
@@ -91,7 +91,7 @@ const About = () => {
             >
               <Award size={40} className="text-primary mx-auto mb-4" />
               <h3 className="text-2xl mb-2 font-heading">Our Promise</h3>
-              <p className="text-secondary">Uncompromising quality. We promise to serve only the freshest, sustainably sourced ingredients, prepared with ultimate care.</p>
+              <p className="text-secondary">We promise careful preparation, fair portions, and meals packed for the best delivery experience possible.</p>
             </motion.div>
           </div>
         </div>

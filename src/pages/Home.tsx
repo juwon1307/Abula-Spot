@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Leaf, Award, Clock, ArrowRight } from 'lucide-react';
+import { Leaf, Award, Clock, ArrowRight, Bike, CalendarCheck, Gift, MessageCircle, Megaphone, Utensils, Users, BriefcaseBusiness, GraduationCap, Heart } from 'lucide-react';
 import Button from '../components/ui/Button';
 import DishCard from '../components/ui/DishCard';
 import './Home.css';
@@ -45,7 +45,22 @@ const MOCK_DISHES = [
 
 const MOCK_GALLERY = [img1, img2, img3, img4];
 
-// Testimonials removed to fix unused variable warning
+const BUSINESS_GOALS = [
+  { title: 'Online Food Delivery', text: 'Fast ordering for fresh meals delivered to homes, hostels, and offices.', icon: Bike },
+  { title: 'Showcase Menu', text: 'Clear menu presentation so customers can browse dishes before they order.', icon: Utensils },
+  { title: 'Brand Awareness', text: 'A stronger digital presence for Babs Abula Spot across Lagos.', icon: Megaphone },
+  { title: 'Reservation Booking', text: 'Simple table booking for dine-in customers and group visits.', icon: CalendarCheck },
+  { title: 'WhatsApp Ordering', text: 'Direct WhatsApp ordering for quick questions, meal requests, and follow-up.', icon: MessageCircle },
+  { title: 'Customer Loyalty', text: 'Repeat-customer offers and community-focused rewards for regular buyers.', icon: Gift },
+];
+
+const TARGET_AUDIENCES = [
+  { title: 'Students', text: 'Affordable meals for campus life and hostel delivery.', icon: GraduationCap },
+  { title: 'Office Workers', text: 'Quick lunch, team orders, and reliable workday delivery.', icon: BriefcaseBusiness },
+  { title: 'Families', text: 'Comforting meals and bulk orders for home dining.', icon: Users },
+  { title: 'Food Lovers', text: 'Fresh local favorites for people who care about flavor.', icon: Heart },
+  { title: 'Corporate Clients', text: 'Catering and scheduled meals for meetings and events.', icon: CalendarCheck },
+];
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -86,15 +101,15 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
           >
-            <span className="hero-subtitle">Meticulously Crafted</span>
-            <h1 className="hero-title">Experience Taste Like Never Before.</h1>
-            <p className="hero-desc">Discover a harmonious blend of traditional flavors and modern culinary artistry in the heart of the city.</p>
+            <span className="hero-subtitle">Restaurant & Online Food Delivery</span>
+            <h1 className="hero-title">Fresh Abula, Served Here or Delivered.</h1>
+            <p className="hero-desc">Enjoy Babs Abula Spot in our restaurant or order online for hot, satisfying meals delivered to your door.</p>
             <div className="hero-actions flex gap-md">
-              <Link to="/menu">
-                <Button variant="primary" size="lg">Explore Menu</Button>
-              </Link>
               <Link to="/order">
-                <Button variant="outline" size="lg" className="hero-btn-outline">Book a Table</Button>
+                <Button variant="primary" size="lg">Order Online</Button>
+              </Link>
+              <Link to="/menu">
+                <Button variant="outline" size="lg" className="hero-btn-outline">Explore Menu</Button>
               </Link>
             </div>
           </motion.div>
@@ -130,12 +145,12 @@ const Home = () => {
               transition={{ duration: 0.8 }}
             >
               <h4 className="section-subtitle">Our Story</h4>
-              <h2 className="section-title">A Symphony of Fresh Ingredients and Passion</h2>
+              <h2 className="section-title">A Local Restaurant Built for Dining In and Delivery</h2>
               <p className="text-secondary mt-4 mb-4">
-                Since our founding, Abula Spot has been dedicated to reimagining the culinary landscape. We believe that a meal is more than just food—it's an experience that brings people together, evoking passion and memories.
+                Babs Abula Spot serves comforting Nigerian meals for guests who want to dine with us and customers who want fast, reliable online food delivery.
               </p>
               <p className="text-secondary mb-4">
-                Our world-renowned chefs meticulously source seasonal, local ingredients to craft dishes that look as beautiful as they taste.
+                From fresh Abula plates to hearty local favorites, every order is prepared with care, packed properly, and made to arrive ready to enjoy.
               </p>
               <Link to="/about">
                 <Button variant="outline" className="mt-4 icon-btn">
@@ -147,8 +162,36 @@ const Home = () => {
         </div>
       </section>
 
+      {/* 3. Business Goals */}
+      <section className="section goals-section bg-secondary">
+        <div className="container">
+          <div className="text-center mb-10">
+            <h4 className="section-subtitle">What We Do</h4>
+            <h2 className="section-title">Built Around Ordering, Delivery, and Real Hospitality</h2>
+          </div>
+          <div className="goals-grid">
+            {BUSINESS_GOALS.map(({ title, text, icon: Icon }, idx) => (
+              <motion.div
+                key={title}
+                className="goal-item"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.05 }}
+              >
+                <Icon size={24} className="text-primary" />
+                <div>
+                  <h3>{title}</h3>
+                  <p className="text-secondary">{text}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 3. Featured Dishes */}
-      <section className="section featured-section bg-secondary">
+      <section className="section featured-section">
         <div className="container">
           <div className="section-header flex justify-between items-center mb-10">
             <div>
@@ -172,12 +215,36 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 4. Why Choose Us */}
+      {/* 4. Target Audience */}
+      <section className="section audience-section bg-secondary">
+        <div className="container">
+          <div className="section-header flex justify-between items-center mb-10">
+            <div>
+              <h4 className="section-subtitle">Who We Serve</h4>
+              <h2 className="section-title">Meals for Students, Workers, Families, and Teams</h2>
+            </div>
+            <Link to="/order" className="desktop-only text-primary flex items-center gap-sm slide-link">
+              Start an Order <ArrowRight size={18} />
+            </Link>
+          </div>
+          <div className="audience-grid">
+            {TARGET_AUDIENCES.map(({ title, text, icon: Icon }) => (
+              <div key={title} className="audience-card">
+                <Icon size={28} className="text-primary" />
+                <h3>{title}</h3>
+                <p className="text-secondary">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Why Choose Us */}
       <section className="section why-us">
         <div className="container">
           <div className="text-center mb-10">
-            <h4 className="section-subtitle">The Abula Spot Difference</h4>
-            <h2 className="section-title">Why Dine With Us?</h2>
+            <h4 className="section-subtitle">The Babs Abula Spot Difference</h4>
+            <h2 className="section-title">Why Choose Us?</h2>
           </div>
           <div className="grid grid-cols-3 gap-xl">
             <motion.div 
@@ -188,8 +255,8 @@ const Home = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="feature-icon-wrapper"><Leaf size={32} /></div>
-              <h3>Fresh Ingredients</h3>
-              <p className="text-secondary">We source our produce daily from local organic farms to ensure peak flavor.</p>
+              <h3>Fresh Meals</h3>
+              <p className="text-secondary">We prepare each dish with fresh ingredients and the familiar flavors people come back for.</p>
             </motion.div>
             <motion.div 
               className="feature-card text-center"
@@ -199,8 +266,8 @@ const Home = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="feature-icon-wrapper"><Award size={32} /></div>
-              <h3>Award-Winning Chefs</h3>
-              <p className="text-secondary">Our culinary team has been recognized internationally for extraordinary technique.</p>
+              <h3>Restaurant Quality</h3>
+              <p className="text-secondary">Enjoy the same care whether you eat at our restaurant or place an online delivery order.</p>
             </motion.div>
             <motion.div 
               className="feature-card text-center"
@@ -210,14 +277,14 @@ const Home = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="feature-icon-wrapper"><Clock size={32} /></div>
-              <h3>Impeccable Service</h3>
-              <p className="text-secondary">Experience attentive, non-intrusive service perfectly timed to your meal.</p>
+              <h3>Convenient Delivery</h3>
+              <p className="text-secondary">Order online and get hot meals delivered without losing the Babs Abula Spot experience.</p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* 5. Gallery Preview */}
+      {/* 6. Gallery Preview */}
       <section className="section gallery-preview-section overflow-hidden">
         <div className="container">
           <div className="text-center mb-10">
@@ -245,7 +312,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 6. Call To Action */}
+      {/* 7. Call To Action */}
       <section className="cta-section">
         <div className="cta-video-container">
           <video 
@@ -260,10 +327,10 @@ const Home = () => {
         <div className="cta-overlay"></div>
         <div className="container relative z-10">
           <div className="cta-box glass-panel text-center">
-            <h2>Ready to Experience Abula Spot?</h2>
-            <p className="text-secondary mt-4 mb-6">Reserve your table today for an unforgettable culinary journey.</p>
+            <h2>Ready to Experience Babs Abula Spot?</h2>
+            <p className="text-secondary mt-4 mb-6">Visit the restaurant or place an online order for fresh food delivered to you.</p>
             <Link to="/order">
-              <Button variant="primary" size="lg">Book Your Table Now</Button>
+              <Button variant="primary" size="lg">Order or Book Now</Button>
             </Link>
           </div>
         </div>
